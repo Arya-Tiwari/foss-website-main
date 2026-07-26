@@ -21,7 +21,7 @@ import {
 import "./LandingPage.css";
 
 const JOIN_FORM_LINK = "https://executiverecruitment.fossmpstme.com";
-const FOSS_FRIDAYS_EP1_LINK = "https://www.instagram.com/reel/XXXXXXXXXXX/"; // replace with actual reel link
+const FOSS_FRIDAYS_EP1_LINK = "https://www.instagram.com/reel/DbL0MxNMCQ0/?igsh=MXZsazZ2cHQ4ZzBvYg==";
 
 function Logo({ size = 40, className = "" }) {
   return (
