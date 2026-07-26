@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -9,66 +8,15 @@ import {
   FaHeart,
   FaBullseye,
   FaArrowRight,
-  FaArrowUp,
-  FaInstagram,
-  FaLinkedin,
-  FaGithub,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
+  FaMicrophone,
+  FaChalkboardTeacher,
+  FaTrophy,
+  FaLaptopCode,
+  FaPodcast,
 } from "react-icons/fa";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "./About.css";
-
-function Logo({ size = 40, className = "" }) {
-  return (
-    <img
-      src="/foss-logo.jpeg"
-      alt="FOSS Club MPSTME"
-      className={`logo-img ${className}`}
-      style={{ height: size, width: "auto" }}
-    />
-  );
-}
-
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
-    { to: "/team", label: "Our Team" },
-    { to: "/events", label: "Events" },
-    { to: "/fossfridays", label: "FOSS Fridays" },
-    { to: "/contact", label: "Contact" },
-  ];
-
-  return (
-    <header className="navbar">
-      <Link to="/" className="navbar__brand" onClick={() => setOpen(false)}>
-        <Logo size={38} />
-        <span>FOSS MPSTME</span>
-      </Link>
-
-      <nav className={`navbar__links ${open ? "is-open" : ""}`}>
-        {links.map((l) => (
-          <Link key={l.to} to={l.to} className="navbar__link" onClick={() => setOpen(false)}>
-            {l.label}
-          </Link>
-        ))}
-      </nav>
-
-      <button
-        className="navbar__toggle"
-        aria-label="Toggle menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-    </header>
-  );
-}
 
 function AboutHero() {
   return (
@@ -298,130 +246,80 @@ function ValuesSection() {
   );
 }
 
-function VisionSection() {
+const whatWeDoItems = [
+  {
+    icon: FaMicrophone,
+    title: "Speaker Sessions",
+    description:
+      "Sessions with industry experts and open source contributors sharing real-world insights and experiences.",
+  },
+  {
+    icon: FaChalkboardTeacher,
+    title: "Technical Workshops",
+    description:
+      "Hands-on workshops on open source tools and technologies to build practical, real-world skills.",
+  },
+  {
+    icon: FaTrophy,
+    title: "National Level Hackathons",
+    description:
+      "Large-scale hackathons bringing together students from across the country to build and innovate.",
+  },
+  {
+    icon: FaLaptopCode,
+    title: "FOSS Projects",
+    description:
+      "Helping our team members learn and build real-life, CV-worthy projects through open source contribution.",
+  },
+  {
+    icon: FaPodcast,
+    title: "Podcasts",
+    description:
+      "Conversations with technologists and open source enthusiasts exploring ideas, careers, and community.",
+  },
+];
+
+function WhatWeDoSection() {
   return (
-    <section className="vision">
+    <section className="what-we-do">
       <motion.div
-        className="vision__inner"
+        className="what-we-do__inner"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <span className="eyebrow">// looking ahead</span>
-        <h2>Our Vision</h2>
-        <div className="vision__quote-card">
-          <FaGlobe size={30} />
-          <p className="vision__quote">
-            "Our vision is to build a vibrant, inclusive community where
-            students come together to learn, share, and grow through Free and
-            Open Source Software. As a part of FOSS United, we believe in the
-            power of collaboration over competition, learning by doing, and
-            creating technology that's open, accessible, and built for the
-            common good."
-          </p>
-          <p className="vision__quote">
-            "We imagine a campus where every student feels empowered to
-            contribute to meaningful projects, explore the world of open
-            source, and be part of something bigger than themselves — a
-            movement rooted in freedom, transparency, and shared knowledge."
-          </p>
+        <span className="eyebrow">// how we bring it to life</span>
+        <h2>What We Do</h2>
+
+        <div className="what-we-do__grid">
+          {whatWeDoItems.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.title}
+                className="what-we-do-card"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
+                whileHover={{ y: -6 }}
+              >
+                <div className="what-we-do-card__icon">
+                  <Icon size={20} />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </motion.div>
+            );
+          })}
         </div>
+
+        <Link to="/events" className="what-we-do__cta">
+          Explore more <FaArrowRight size={13} />
+        </Link>
       </motion.div>
     </section>
-  );
-}
-
-function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-  const quickLinks = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
-    { to: "/team", label: "Our Team" },
-    { to: "/events", label: "Events" },
-    { to: "/fossfridays", label: "FOSS Fridays" },
-    { to: "/contact", label: "Contact Us" },
-  ];
-
-  const socials = [
-    { name: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/foss_club_mpstme/" },
-    { name: "LinkedIn", icon: FaLinkedin, href: "https://www.linkedin.com/company/mpstmefoss/posts/?feedView=all" },
-    { name: "GitHub Organisation", icon: FaGithub, href: "https://github.com/FOSS-Club-MPSTME" },
-  ];
-
-  return (
-    <footer className="footer">
-      <div className="footer__grid">
-        <div className="footer__col">
-          <div className="footer__brand">
-            <Logo size={32} />
-            <h3>FOSS Club MPSTME</h3>
-          </div>
-          <p>
-            Building a vibrant, inclusive community where students learn, share, and grow
-            through Free and Open Source Software.
-          </p>
-        </div>
-
-        <div className="footer__col">
-          <h4>Explore</h4>
-          <ul>
-            {quickLinks.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to}>{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="footer__col">
-          <h4>Contact</h4>
-          <div className="footer__contact-line">
-            <FaMapMarkerAlt size={15} />
-            <div>
-              <p className="strong">MPSTME, NMIMS, Mumbai</p>
-              <p>Bhakti Vedant Marg, opp. Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle West, Mumbai, Maharashtra 400056</p>
-            </div>
-          </div>
-          <div className="footer__contact-line">
-            <FaEnvelope size={15} />
-            <a href="mailto:fossmpstme@gmail.com">fossmpstme@gmail.com</a>
-          </div>
-          <div className="footer__contact-line">
-            <FaPhoneAlt size={15} />
-            <a href="tel:+917900093744">+91 79000 93744</a>
-          </div>
-        </div>
-
-        <div className="footer__col">
-          <h4>Follow Us</h4>
-          <div className="footer__socials">
-            {socials.map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
-                <s.icon size={18} />
-              </a>
-            ))}
-          </div>
-
-          <a
-            className="footer__external"
-            href="https://fossunited.org/c/mpstme-nmims"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            FOSS United MPSTME →
-          </a>
-        </div>
-      </div>
-
-      <div className="footer__bottom">
-        <p>© 2026 FOSS Club MPSTME. All rights reserved.</p>
-        <button onClick={scrollToTop} className="footer__top-btn">
-          <FaArrowUp size={14} /> Back to top
-        </button>
-      </div>
-    </footer>
   );
 }
 
@@ -433,7 +331,7 @@ export default function About() {
       <WhoWeAre />
       <MissionSection />
       <ValuesSection />
-      <VisionSection />
+      <WhatWeDoSection />
       <Footer />
     </div>
   );

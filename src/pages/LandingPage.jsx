@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -10,69 +9,15 @@ import {
   FaTrophy,
   FaLaptopCode,
   FaArrowRight,
-  FaArrowUp,
   FaPlay,
   FaInstagram,
-  FaLinkedin,
-  FaGithub,
-  FaEnvelope,
-  FaPhoneAlt,
 } from "react-icons/fa";
+import Navbar, { Logo } from "../components/Navbar";
+import Footer from "../components/Footer";
 import "./LandingPage.css";
 
 const JOIN_FORM_LINK = "https://executiverecruitment.fossmpstme.com";
 const FOSS_FRIDAYS_EP1_LINK = "https://www.instagram.com/reel/DbL0MxNMCQ0/?igsh=MXZsazZ2cHQ4ZzBvYg==";
-
-function Logo({ size = 40, className = "" }) {
-  return (
-    <img
-      src="/foss-logo.jpeg"
-      alt="FOSS Club MPSTME"
-      className={`logo-img ${className}`}
-      style={{ height: size, width: "auto" }}
-    />
-  );
-}
-
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
-    { to: "/team", label: "Our Team" },
-    { to: "/events", label: "Events" },
-    { to: "/fossfridays", label: "FOSS Fridays" },
-    { to: "/contact", label: "Contact" },
-  ];
-
-  return (
-    <header className="navbar">
-      <Link to="/" className="navbar__brand" onClick={() => setOpen(false)}>
-        <Logo size={38} />
-        <span>FOSS MPSTME</span>
-      </Link>
-
-      <nav className={`navbar__links ${open ? "is-open" : ""}`}>
-        {links.map((l) => (
-          <Link key={l.to} to={l.to} className="navbar__link" onClick={() => setOpen(false)}>
-            {l.label}
-          </Link>
-        ))}
-      </nav>
-
-      <button
-        className="navbar__toggle"
-        aria-label="Toggle menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-    </header>
-  );
-}
 
 function Hero() {
   return (
@@ -409,99 +354,6 @@ function TeamSection() {
         </Link>
       </div>
     </section>
-  );
-}
-
-function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-  const quickLinks = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
-    { to: "/team", label: "Our Team" },
-    { to: "/events", label: "Events" },
-    { to: "/fossfridays", label: "FOSS Fridays" },
-    { to: "/contact", label: "Contact Us" },
-  ];
-
-  const socials = [
-    { name: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/foss_club_mpstme/" },
-    { name: "LinkedIn", icon: FaLinkedin, href: "https://www.linkedin.com/company/mpstmefoss/posts/?feedView=all" },
-    { name: "GitHub Organisation", icon: FaGithub, href: "https://github.com/FOSS-Club-MPSTME" },
-  ];
-
-  return (
-    <footer className="footer">
-      <div className="footer__grid">
-        <div className="footer__col">
-          <div className="footer__brand">
-            <Logo size={32} />
-            <h3>FOSS Club MPSTME</h3>
-          </div>
-          <p>
-            Building a vibrant, inclusive community where students learn, share, and grow
-            through Free and Open Source Software.
-          </p>
-        </div>
-
-        <div className="footer__col">
-          <h4>Explore</h4>
-          <ul>
-            {quickLinks.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to}>{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="footer__col">
-          <h4>Contact</h4>
-          <div className="footer__contact-line">
-            <FaMapMarkerAlt size={15} />
-            <div>
-              <p className="strong">MPSTME, NMIMS, Mumbai</p>
-              <p>Bhakti Vedant Marg, opp. Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle West, Mumbai, Maharashtra 400056</p>
-            </div>
-          </div>
-          <div className="footer__contact-line">
-            <FaEnvelope size={15} />
-            <a href="mailto:fossmpstme@gmail.com">fossmpstme@gmail.com</a>
-          </div>
-          <div className="footer__contact-line">
-            <FaPhoneAlt size={15} />
-            <a href="tel:+917900093744">+91 79000 93744</a>
-          </div>
-        </div>
-
-        <div className="footer__col">
-          <h4>Follow Us</h4>
-          <div className="footer__socials">
-            {socials.map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
-                <s.icon size={18} />
-              </a>
-            ))}
-          </div>
-
-          <a
-            className="footer__external"
-            href="https://fossunited.org/c/mpstme-nmims"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            FOSS United MPSTME →
-          </a>
-        </div>
-      </div>
-
-      <div className="footer__bottom">
-        <p>© 2026 FOSS Club MPSTME. All rights reserved.</p>
-        <button onClick={scrollToTop} className="footer__top-btn">
-          <FaArrowUp size={14} /> Back to top
-        </button>
-      </div>
-    </footer>
   );
 }
 
