@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import About from "./pages/about";
 import EventsPage from "./pages/EventsPage";
+import ContactPage from "./pages/ContactPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Stub pages — swap these out as you build the real ones.
@@ -23,7 +24,7 @@ export default function App() {
         <Route path="/team" element={<Placeholder title="Our Team" />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/fossfridays" element={<Placeholder title="FOSS Fridays" />} />
-        <Route path="/contact" element={<Placeholder title="Contact Us" />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>
   );
