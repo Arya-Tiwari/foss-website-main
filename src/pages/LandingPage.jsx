@@ -16,7 +16,7 @@ import Navbar, { Logo } from "../components/Navbar";
 import Footer from "../components/Footer";
 import "./LandingPage.css";
 
-const JOIN_FORM_LINK = "https://executiverecruitment.fossmpstme.com";
+const JOIN_FORM_LINK = "https://recruitments.fossmpstme.com";
 const FOSS_FRIDAYS_EP1_LINK = "https://www.instagram.com/reel/DbL0MxNMCQ0/?igsh=MXZsazZ2cHQ4ZzBvYg==";
 
 function Hero() {
@@ -125,7 +125,7 @@ const events = [
       "The official welcome for first-years — club projects showcase, technical games, and an intro to the FOSS community.",
     icon: FaChalkboardTeacher,
     status: "upcoming",
-    exploreLink: "https://fossunlocked.fossmpstme.com",
+    exploreLink: "https://unlocked.fossmpstme.com",
   },
   {
     title: "Hackathon Readiness Workshop",
