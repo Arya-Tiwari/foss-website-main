@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import About from "./pages/about";
 import EventsPage from "./pages/EventsPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Stub pages — swap these out as you build the real ones.
 function Placeholder({ title }) {
@@ -15,6 +16,7 @@ function Placeholder({ title }) {
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
