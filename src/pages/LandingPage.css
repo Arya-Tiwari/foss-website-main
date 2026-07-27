@@ -462,22 +462,41 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   gap: 1.5rem;
   min-width: 0;
 }
+
+/* Card wrapper — positioning context only; the card itself clips its
+   back-face overlay so nothing can spill outside the card's own box. */
+.team-card-wrap {
+  position: relative;
+  min-width: 0;
+  display: flex;
+}
+
 .team-card {
   position: relative;
+  width: 100%;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 0 28px 0 0;
-  padding: 1.5rem 1.25rem;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+.team-card-wrap:hover .team-card,
+.team-card-wrap:focus-within .team-card {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Front face ---------- */
+.team-card__front {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  min-width: 0;
+  padding: 1.5rem 1.25rem 1.5rem;
 }
 .team-card__position {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  align-self: flex-start;
   font-family: var(--font-mono);
   font-size: 0.62rem;
   text-transform: uppercase;
@@ -486,7 +505,7 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   background: rgba(51, 168, 82, 0.15);
   padding: 0.3rem 0.55rem;
   border-radius: 0 8px 0 8px;
-  z-index: 2;
+  margin-bottom: 0.75rem;
 }
 .team-card__photo-wrap {
   width: 100%;
@@ -494,8 +513,8 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.5rem;
   min-width: 0;
+  margin-bottom: 1rem;
 }
 .team-card__photo {
   width: 100%;
@@ -510,6 +529,61 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   margin: 0;
   color: var(--white);
 }
+
+/* ---------- Back face: slides up from below to cover the front ---------- */
+.team-card__back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--surface);
+  border-left: 2px solid var(--green);
+  padding: 1.3rem 1.25rem;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.team-card-wrap:hover .team-card__back,
+.team-card-wrap:focus-within .team-card__back {
+  transform: translateY(0);
+}
+
+.team-card__back-position {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--green-bright);
+  margin-bottom: 0.4rem;
+}
+.team-card__back-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--white);
+  margin: 0 0 0.6rem;
+  line-height: 1.3;
+}
+.team-card__desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 0.85rem;
+}
+.team-card__socials {
+  display: flex;
+  gap: 0.9rem;
+}
+.team-card__socials a {
+  color: var(--green-bright);
+  font-size: 1.05rem;
+  display: flex;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.team-card__socials a:hover {
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
 .team__footer-link {
   max-width: 1280px;
   margin: 2.5rem auto 0;
@@ -535,6 +609,8 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   .events__grid { grid-template-columns: 1fr; }
   .reel-player { max-width: 260px; margin: 0 auto; }
   .team__grid { grid-template-columns: repeat(2, 1fr); }
+  .team-card__back { padding: 1rem 1rem; }
+  .team-card__desc { font-size: 0.76rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

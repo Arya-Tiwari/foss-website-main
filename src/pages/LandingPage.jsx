@@ -11,6 +11,8 @@ import {
   FaArrowRight,
   FaPlay,
   FaInstagram,
+  FaGithub,
+  FaLinkedin,
 } from "react-icons/fa";
 import Navbar, { Logo } from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -313,12 +315,79 @@ function FossFridaysSection() {
 }
 
 const team = [
-  { name: "Bhavya Shah", position: "Advisory", photo: "/team/bhavya-shah.png" },
-  { name: "Sonal Aggarwal", position: "Chairperson", photo: "/team/sonal-aggarwal.png" },
-  { name: "Prathamesh Mahadik", position: "Vice Chairperson", photo: "/team/prathamesh-mahadik.png" },
-  { name: "Preet Agarwal", position: "Vice Chairperson", photo: "/team/preet-agarwal.png" },
-  { name: "Jash Vakharia", position: "Secretary", photo: "/team/jash-vakharia.png" },
+  {
+    name: "Bhavya Shah",
+    position: "Advisory",
+    photo: "/team/bhavya-shah.png",
+    description: "Provides guidance and continuity for the club's leadership team.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/bhavya-shah-6679281b6/",
+      github: "https://github.com/bhavyashah1403/",
+    },
+  },
+  {
+    name: "Sonal Aggarwal",
+    position: "Chairperson",
+    photo: "/team/sonal-aggarwal.png",
+    description:
+      "Sets the club's overall direction and represents FOSS MPSTME to the institute and industry partners.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/sonal-aggarwal-72bb6432b/",
+    },
+  },
+  {
+    name: "Prathamesh Mahadik",
+    position: "Vice Chairperson",
+    photo: "/team/prathamesh-mahadik.png",
+    description: "Supports the Chairperson and drives cross-department coordination for major events.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/prathamesh-mahadik-01aa45372/",
+      github: "https://github.com/PrathameshAMahadik",
+    },
+  },
+  {
+    name: "Preet Agarwal",
+    position: "Vice Chairperson",
+    photo: "/team/preet-agarwal.png",
+    description: "Supports the Chairperson and drives cross-department coordination for major events.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/preet-agarwal-43320137a?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+      github: "https://github.com/PreetAgarwal01/",
+    },
+  },
+  {
+    name: "Jash Vakharia",
+    position: "Secretary",
+    photo: "/team/jash-vakharia.png",
+    description: "Keeps meeting minutes, official records, and internal communication running smoothly.",
+    socials: {
+      linkedin: "https://linkedin.com/in/jashvakharia",
+      github: "https://github.com/jashvakharia",
+    },
+  },
 ];
+
+function initialsAvatar(name) {
+  const initials = (name || "?")
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+    <rect width='100%' height='100%' fill='#1b1b1b'/>
+    <text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle'
+      font-family='Arial, sans-serif' font-size='96' fill='#4ecb74'>${initials}</text>
+  </svg>`;
+
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+function handleImgError(e, name) {
+  e.currentTarget.onerror = null;
+  e.currentTarget.src = initialsAvatar(name);
+}
 
 function TeamSection() {
   return (
@@ -332,18 +401,45 @@ function TeamSection() {
         {team.map((m, i) => (
           <motion.div
             key={m.name}
-            className="team-card"
+            className="team-card-wrap"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: (i % 5) * 0.08 }}
-            whileHover={{ y: -6 }}
           >
-            <span className="team-card__position">{m.position}</span>
-            <div className="team-card__photo-wrap">
-              <img src={m.photo} alt={m.name} className="team-card__photo" />
+            <div className="team-card">
+              <div className="team-card__front">
+                <span className="team-card__position">{m.position}</span>
+                <div className="team-card__photo-wrap">
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    className="team-card__photo"
+                    loading="lazy"
+                    onError={(e) => handleImgError(e, m.name)}
+                  />
+                </div>
+                <h3 className="team-card__name">{m.name}</h3>
+              </div>
+
+              <div className="team-card__back">
+                <span className="team-card__back-position">{m.position}</span>
+                <h3 className="team-card__back-name">{m.name}</h3>
+                {m.description && <p className="team-card__desc">{m.description}</p>}
+                <div className="team-card__socials">
+                  {m.socials?.github && (
+                    <a href={m.socials.github} target="_blank" rel="noreferrer" aria-label={`${m.name} on GitHub`}>
+                      <FaGithub />
+                    </a>
+                  )}
+                  {m.socials?.linkedin && (
+                    <a href={m.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`${m.name} on LinkedIn`}>
+                      <FaLinkedin />
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
-            <h3 className="team-card__name">{m.name}</h3>
           </motion.div>
         ))}
       </div>
