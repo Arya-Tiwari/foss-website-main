@@ -202,13 +202,32 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   border-top: 1px solid var(--border);
 }
 
-.section-head { max-width: 1280px; margin: 0 auto 2.5rem; }
+.section-head {
+  max-width: 1280px;
+  margin: 0 auto 2.5rem;
+  text-align: left;
+}
+.section-head .eyebrow {
+  display: block;
+  text-align: left;
+  margin-left: 0;
+}
 .section-head h2 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   margin: 0;
+  text-align: left;
   color: var(--white);
+}
+
+/* keep both blocks locked to the same edge */
+.section-head,
+.events__grid,
+.team__grid {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .events__grid {

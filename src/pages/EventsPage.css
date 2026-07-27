@@ -37,7 +37,32 @@ button { font-family: inherit; cursor: pointer; }
   margin-bottom: 1rem;
 }
 
-.section-head { max-width: 1280px; margin: 0 auto 2.5rem; }
+.section-head {
+  max-width: 1280px;
+  margin: 0 auto 2.5rem;
+  text-align: left;
+}
+.section-head .eyebrow {
+  display: block;
+  text-align: left;
+  margin-left: 0;
+}
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0;
+  text-align: left;
+  color: var(--white);
+}
+
+.section-head,
+.events__grid,
+.past__grid {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .section-head h2 {
   font-family: var(--font-display);
   font-weight: 700;
