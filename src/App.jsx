@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import About from "./pages/about";
+import TeamPage from "./pages/TeamPage";
 import EventsPage from "./pages/EventsPage";
 import ContactPage from "./pages/ContactPage";
 import FossFridaysPage from "./pages/FossFridaysPage";
@@ -23,7 +24,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/team" element={<Placeholder title="Our Team" />} />
+        <Route path="/team" element={<TeamPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/fossfridays" element={<FossFridaysPage />} />
         <Route path="/fossfridays/:issueId" element={<NewsletterPage />} />
