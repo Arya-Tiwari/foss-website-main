@@ -3,6 +3,8 @@ import LandingPage from "./pages/LandingPage";
 import About from "./pages/about";
 import EventsPage from "./pages/EventsPage";
 import ContactPage from "./pages/ContactPage";
+import FossFridaysPage from "./pages/FossFridaysPage";
+import NewsletterPage from "./pages/NewsletterPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Stub pages — swap these out as you build the real ones.
@@ -23,7 +25,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/team" element={<Placeholder title="Our Team" />} />
         <Route path="/events" element={<EventsPage />} />
-        <Route path="/fossfridays" element={<Placeholder title="FOSS Fridays" />} />
+        <Route path="/fossfridays" element={<FossFridaysPage />} />
+        <Route path="/fossfridays/:issueId" element={<NewsletterPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>

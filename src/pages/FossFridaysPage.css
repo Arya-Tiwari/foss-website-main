@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  --green: #33a852;
+  --green-bright: #4ecb74;
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1b1b1b;
+  --white: #ffffff;
+  --muted: #9a9a95;
+  --border: rgba(255, 255, 255, 0.1);
+  --font-display: "Unbounded", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+html { overflow-x: hidden; }
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+.foss-fridays-page { overflow-x: hidden; }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--green-bright);
+  margin-bottom: 1rem;
+}
+
+.section-head { max-width: 1000px; margin: 0 auto 2.5rem; }
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0;
+  color: var(--white);
+}
+
+/* ---------- Hero ---------- */
+.ff-hero {
+  min-height: 32vh;
+  padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3.5rem);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+}
+.ff-hero__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.ff-hero__inner h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  margin: 0 0 1rem;
+  color: var(--white);
+}
+.ff-hero__subtitle {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0;
+}
+
+/* ---------- Issue list ---------- */
+.ff-issues {
+  padding: clamp(1rem, 4vw, 2rem) clamp(1.25rem, 4vw, 3.5rem) clamp(4rem, 8vw, 6rem);
+  background: var(--bg);
+}
+
+.ff-issues__list {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.issue-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.5rem 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+.issue-card:hover {
+  border-color: var(--green);
+  background: var(--surface-2);
+  transform: translateY(-3px);
+}
+
+.issue-card__icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  background: rgba(51, 168, 82, 0.12);
+  color: var(--green-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.issue-card__body { min-width: 0; }
+
+.issue-card__top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+.issue-card__issue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--green-bright);
+  text-transform: uppercase;
+}
+.issue-card__date {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.issue-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+  color: var(--white);
+}
+
+.issue-card__summary {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+  max-width: 640px;
+}
+
+.issue-card__topics {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.issue-card__topic {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.issue-card__cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--green-bright);
+  white-space: nowrap;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .issue-card {
+    grid-template-columns: auto 1fr;
+  }
+  .issue-card__cta {
+    grid-column: 2;
+    padding-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
