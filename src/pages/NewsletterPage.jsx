@@ -19,7 +19,6 @@ export default function NewsletterPage() {
     window.scrollTo({ top: 0 });
   }, [issueId]);
 
-  // Unknown issue id -> bounce back to the issue list.
   if (!newsletter) {
     return <Navigate to="/fossfridays" replace />;
   }
@@ -69,11 +68,17 @@ export default function NewsletterPage() {
           </div>
 
           <div className="nl-frame__body">
-            {newsletter.content.map((paragraph, i) => (
-              <p key={i} className="nl-frame__line">
-                {paragraph}
-              </p>
-            ))}
+            {newsletter.content.map((item, i) =>
+              item.type === "question" ? (
+                <h3 key={i} className="nl-frame__question">
+                  {item.text}
+                </h3>
+              ) : (
+                <p key={i} className="nl-frame__line">
+                  {item.text}
+                </p>
+              )
+            )}
           </div>
 
           <div className="nl-frame__nav">
