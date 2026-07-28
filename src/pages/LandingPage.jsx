@@ -9,8 +9,7 @@ import {
   FaTrophy,
   FaLaptopCode,
   FaArrowRight,
-  FaPlay,
-  FaInstagram,
+  FaNewspaper,
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa";
@@ -19,7 +18,6 @@ import Footer from "../components/Footer";
 import "./LandingPage.css";
 
 const JOIN_FORM_LINK = "https://recruitments.fossmpstme.com";
-const FOSS_FRIDAYS_EP1_LINK = "https://www.instagram.com/reel/DbL0MxNMCQ0/?igsh=MXZsazZ2cHQ4ZzBvYg==";
 
 function Hero() {
   return (
@@ -266,14 +264,14 @@ function FossFridaysSection() {
           <span className="eyebrow">// weekly dose of open source</span>
           <h2>FOSS Fridays</h2>
           <p>
-            FOSS Fridays is our weekly newsletter-meets-reel day — every Friday,
-            our members put together short, punchy reels breaking down open-source
-            projects, tools, and tech news for the community. Quick to watch,
-            easy to learn from, and made entirely by students, for students.
+            FOSS Fridays is our weekly newsletter — every Friday, our members break
+            down open-source projects, tools, and tech news for the community.
+            Quick to read, easy to learn from, and made entirely by students,
+            for students.
           </p>
           <div className="foss-fridays__meta">
             <span><FaRegCalendarAlt size={13} /> Every Friday</span>
-            <span><FaUsers size={13} /> Hosted by club members</span>
+            <span><FaUsers size={13} /> Written by club members</span>
           </div>
           <Link to="/fossfridays" className="about-brief__link">
             Explore FOSS Fridays <FaArrowRight size={13} />
@@ -287,27 +285,49 @@ function FossFridaysSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <a
-            href={FOSS_FRIDAYS_EP1_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="reel-player"
-            aria-label="Watch FOSS Fridays Episode 1 on Instagram"
+          <Link
+            to="/fossfridays"
+            className="newsletter-stack"
+            aria-label="Read the latest FOSS Fridays newsletter"
           >
-            <img
-              src="/foss-fridays-thumb.jpeg"
-              alt="FOSS Fridays Episode 1"
-              className="reel-player__thumb"
-            />
-            <div className="reel-player__overlay">
-              <span className="reel-player__play-btn">
-                <FaPlay size={20} />
+            <span className="newsletter-stack__layer newsletter-stack__layer--back" />
+            <span className="newsletter-stack__layer newsletter-stack__layer--mid" />
+
+            <span className="newsletter-stack__front">
+              <span className="newsletter-stack__topbar">
+                <span className="newsletter-stack__dot" />
+                <span className="newsletter-stack__dot" />
+                <span className="newsletter-stack__dot" />
+                <span className="newsletter-stack__badge">Issue 01</span>
               </span>
-              <span className="reel-player__label">
-                <FaInstagram size={12} /> Episode 01
+
+              <span className="newsletter-stack__body">
+                <span className="newsletter-stack__icon">
+                  <FaNewspaper size={22} />
+                </span>
+                <span className="newsletter-stack__title">
+                  The Agentic AI Threat
+                </span>
+                <span className="newsletter-stack__line" />
+                <span className="newsletter-stack__line" />
+                <span className="newsletter-stack__line newsletter-stack__line--short" />
+
+                <span className="newsletter-stack__tags">
+                  <span className="newsletter-stack__tag">AI Security</span>
+                  <span className="newsletter-stack__tag">Cybersecurity</span>
+                </span>
               </span>
-            </div>
-          </a>
+
+              <span className="newsletter-stack__footer">
+                <span className="newsletter-stack__date">
+                  <FaRegCalendarAlt size={11} /> 31st Jul
+                </span>
+                <span className="newsletter-stack__cta">
+                  Read latest issue <FaArrowRight size={11} />
+                </span>
+              </span>
+            </span>
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -392,62 +412,64 @@ function handleImgError(e, name) {
 function TeamSection() {
   return (
     <section className="team">
-      <div className="section-head">
-        <span className="eyebrow">// the people behind it</span>
-        <h2>Meet Our Team</h2>
-      </div>
+      <div className="team__inner">
+        <div className="section-head">
+          <span className="eyebrow">// the people behind it</span>
+          <h2>Meet Our Team</h2>
+        </div>
 
-      <div className="team__grid">
-        {team.map((m, i) => (
-          <motion.div
-            key={m.name}
-            className="team-card-wrap"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: (i % 5) * 0.08 }}
-          >
-            <div className="team-card">
-              <div className="team-card__front">
-                <span className="team-card__position">{m.position}</span>
-                <div className="team-card__photo-wrap">
-                  <img
-                    src={m.photo}
-                    alt={m.name}
-                    className="team-card__photo"
-                    loading="lazy"
-                    onError={(e) => handleImgError(e, m.name)}
-                  />
+        <div className="team__grid">
+          {team.map((m, i) => (
+            <motion.div
+              key={m.name}
+              className="team-card-wrap"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (i % 5) * 0.08 }}
+            >
+              <div className="team-card">
+                <div className="team-card__front">
+                  <span className="team-card__position">{m.position}</span>
+                  <div className="team-card__photo-wrap">
+                    <img
+                      src={m.photo}
+                      alt={m.name}
+                      className="team-card__photo"
+                      loading="lazy"
+                      onError={(e) => handleImgError(e, m.name)}
+                    />
+                  </div>
+                  <h3 className="team-card__name">{m.name}</h3>
                 </div>
-                <h3 className="team-card__name">{m.name}</h3>
-              </div>
 
-              <div className="team-card__back">
-                <span className="team-card__back-position">{m.position}</span>
-                <h3 className="team-card__back-name">{m.name}</h3>
-                {m.description && <p className="team-card__desc">{m.description}</p>}
-                <div className="team-card__socials">
-                  {m.socials?.github && (
-                    <a href={m.socials.github} target="_blank" rel="noreferrer" aria-label={`${m.name} on GitHub`}>
-                      <FaGithub />
-                    </a>
-                  )}
-                  {m.socials?.linkedin && (
-                    <a href={m.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`${m.name} on LinkedIn`}>
-                      <FaLinkedin />
-                    </a>
-                  )}
+                <div className="team-card__back">
+                  <span className="team-card__back-position">{m.position}</span>
+                  <h3 className="team-card__back-name">{m.name}</h3>
+                  {m.description && <p className="team-card__desc">{m.description}</p>}
+                  <div className="team-card__socials">
+                    {m.socials?.github && (
+                      <a href={m.socials.github} target="_blank" rel="noreferrer" aria-label={`${m.name} on GitHub`}>
+                        <FaGithub />
+                      </a>
+                    )}
+                    {m.socials?.linkedin && (
+                      <a href={m.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`${m.name} on LinkedIn`}>
+                        <FaLinkedin />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="team__footer-link">
-        <Link to="/team" className="events__explore-all">
-          See our entire team <FaArrowRight size={13} />
-        </Link>
+        <div className="team__footer-link">
+          <Link to="/team" className="events__explore-all">
+            See our entire team <FaArrowRight size={13} />
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -221,10 +221,8 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   color: var(--white);
 }
 
-/* keep both blocks locked to the same edge */
 .section-head,
-.events__grid,
-.team__grid {
+.events__grid {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
@@ -381,72 +379,163 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
 .foss-fridays__meta span { display: flex; align-items: center; gap: 0.4rem; }
 .foss-fridays__meta svg { color: var(--green); }
 
+/* ---------- Newsletter stack (replaces reel player) ---------- */
 .foss-fridays__player {
   display: flex;
   justify-content: center;
+  align-items: center;
   min-width: 0;
+  padding: 1.5rem 0;
 }
 
-.reel-player {
+.newsletter-stack {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 300px;
-  aspect-ratio: 9 / 16;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0 32px 0 32px;
-  overflow: hidden;
-  cursor: pointer;
+  max-width: 340px;
 }
-.reel-player__thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.reel-player__overlay {
+
+.newsletter-stack__layer {
   position: absolute;
   inset: 0;
+  border-radius: 0 24px 0 24px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.newsletter-stack__layer--back {
+  transform: rotate(-6deg) translate(-10px, 10px);
+  opacity: 0.5;
+}
+.newsletter-stack__layer--mid {
+  transform: rotate(4deg) translate(8px, 6px);
+  opacity: 0.75;
+}
+.newsletter-stack:hover .newsletter-stack__layer--back {
+  transform: rotate(-9deg) translate(-16px, 16px);
+}
+.newsletter-stack:hover .newsletter-stack__layer--mid {
+  transform: rotate(6deg) translate(12px, 10px);
+}
+
+.newsletter-stack__front {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.15) 45%, rgba(0, 0, 0, 0.35));
-  transition: background 0.3s ease;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 0 24px 0 24px;
+  padding: 1.1rem 1.25rem 1.35rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.reel-player:hover .reel-player__overlay {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0.45));
+.newsletter-stack:hover .newsletter-stack__front {
+  transform: translateY(-4px);
+  border-color: var(--green);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
-.reel-player__play-btn {
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background: var(--green);
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-.reel-player:hover .reel-player__play-btn {
-  background: var(--green-bright);
-  transform: scale(1.08);
-}
-.reel-player__label {
+
+.newsletter-stack__topbar {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+.newsletter-stack__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.newsletter-stack__badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--green-bright);
+  background: rgba(51, 168, 82, 0.15);
+  padding: 0.25rem 0.55rem;
+  border-radius: 0 8px 0 8px;
+}
+
+.newsletter-stack__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+.newsletter-stack__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 0 12px 0 12px;
+  background: rgba(51, 168, 82, 0.15);
+  color: var(--green-bright);
+  margin-bottom: 0.35rem;
+}
+.newsletter-stack__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 0.15rem;
+}
+.newsletter-stack__line {
+  display: block;
+  height: 7px;
+  width: 90%;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.newsletter-stack__line--short { width: 55%; }
+
+.newsletter-stack__tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.newsletter-stack__tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--green-bright);
+  border: 1px solid var(--border);
+  background: rgba(51, 168, 82, 0.08);
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+}
+
+.newsletter-stack__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--border);
+}
+.newsletter-stack__date {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.newsletter-stack__date svg { color: var(--green); }
+.newsletter-stack__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--white);
-  background: rgba(0, 0, 0, 0.4);
-  padding: 0.35rem 0.75rem;
-  border-radius: 0 10px 0 10px;
+  color: var(--green-bright);
+  transition: color 0.2s ease;
 }
+.newsletter-stack:hover .newsletter-stack__cta { color: var(--white); }
 
 /* ---------- Meet Our Team ---------- */
 .team {
@@ -454,17 +543,17 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   background: var(--bg);
   border-top: 1px solid var(--border);
 }
-.team__grid {
+.team__inner {
   max-width: 1280px;
   margin: 0 auto;
+}
+.team__grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5rem;
   min-width: 0;
 }
 
-/* Card wrapper — positioning context only; the card itself clips its
-   back-face overlay so nothing can spill outside the card's own box. */
 .team-card-wrap {
   position: relative;
   min-width: 0;
@@ -487,7 +576,6 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
 }
 
-/* ---------- Front face ---------- */
 .team-card__front {
   position: relative;
   display: flex;
@@ -530,7 +618,6 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
   color: var(--white);
 }
 
-/* ---------- Back face: slides up from below to cover the front ---------- */
 .team-card__back {
   position: absolute;
   inset: 0;
@@ -585,8 +672,7 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
 }
 
 .team__footer-link {
-  max-width: 1280px;
-  margin: 2.5rem auto 0;
+  margin-top: 2.5rem;
   display: flex;
   justify-content: center;
 }
@@ -607,7 +693,7 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
 @media (max-width: 640px) {
   .about-brief__photos { grid-template-columns: 1fr 1fr; }
   .events__grid { grid-template-columns: 1fr; }
-  .reel-player { max-width: 260px; margin: 0 auto; }
+  .newsletter-stack { max-width: 280px; margin: 0 auto; }
   .team__grid { grid-template-columns: repeat(2, 1fr); }
   .team-card__back { padding: 1rem 1rem; }
   .team-card__desc { font-size: 0.76rem; }
