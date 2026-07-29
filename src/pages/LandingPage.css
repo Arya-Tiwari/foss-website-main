@@ -702,3 +702,33 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* Asav was here n made these changes below:  */
+
+#root > div > section.events > div.section-head {
+  margin-left: 40px;
+}
+
+#root > div > section.team > div > div.section-head {
+  margin-left: 0px;
+}
+
+#root > div > section.values > div.section-head.section-head--center {
+  margin-left: 140px;
+}
+
+#root > div > section.upcoming > div.section-head {
+  margin-left: 40px;
+}
+
+#root > div > section.past > div.section-head {
+  margin-left: 40px;
+}
+
+#root > div > section.gallery > div.section-head.section-head--center > h2 {
+  margin-left: 400px;
+}
+
+#root > div > section.gallery > div.section-head.section-head--center > span {
+  margin-left: 400px;
+}

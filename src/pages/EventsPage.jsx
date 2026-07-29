@@ -146,7 +146,7 @@ function GallerySection() {
   return (
     <section className="gallery">
       <div className="section-head section-head--center">
-        <span className="eyebrow">// moments from the community</span>
+        <span className="eyebrow">// moments</span>
         <h2>Gallery</h2>
       </div>
 

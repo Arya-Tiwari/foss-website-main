@@ -338,3 +338,28 @@ button { font-family: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+#root > div > section.contact-info > div.section-head {
+  margin-left: 40px;
+}
+
+#root > div > section.follow > div.section-head {
+  margin-left: 40px;
+}
+
+#root > div > section.why-join > div.section-head.section-head--center > h2 {
+  margin-left: 350px;
+}
+
+#root > div > section.why-join > div.section-head.section-head--center > span {
+  margin-left: 350px;
+}
+
+#root > div > section.values > div.section-head.section-head--center > h2 {
+  margin-left: 380px;
+}
+
+#root > div > section.values > div.section-head.section-head--center > span {
+  margin-left: 450px;
+}
+
