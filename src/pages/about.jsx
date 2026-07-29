@@ -16,7 +16,7 @@ import {
 } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "./About.css";
+import "./about.css";
 
 function AboutHero() {
   return (
