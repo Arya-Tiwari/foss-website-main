@@ -194,6 +194,16 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (max-width: 720px) {
   .nl-frame__nav { flex-wrap: wrap; gap: 1rem; }
+  .nl-frame { border-radius: 4px 24px 4px 24px; }
+}
+
+@media (max-width: 480px) {
+  .nl-body { padding-left: 1rem; padding-right: 1rem; }
+  .nl-frame { padding: 1.5rem 1.25rem; }
+  .nl-frame__meta { gap: 0.85rem; margin-bottom: 1.5rem; padding-bottom: 1.1rem; }
+  .nl-frame__line { font-size: 0.96rem; line-height: 1.75; }
+  .nl-frame__line:first-of-type { font-size: 1.05rem; }
+  .nl-frame__nav { margin-top: 1.75rem; font-size: 0.78rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -311,6 +311,13 @@ button { font-family: inherit; cursor: pointer; }
   .contact-info__grid { grid-template-columns: 1fr; }
   .follow__grid { grid-template-columns: 1fr; }
   .why-join__grid { grid-template-columns: 1fr; }
+  .why-join__cta .btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 400px) {
+  .contact-card,
+  .social-card,
+  .reason-card { padding: 1.35rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

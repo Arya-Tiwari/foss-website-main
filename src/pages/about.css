@@ -350,6 +350,18 @@ button { font-family: inherit; cursor: pointer; }
   .mission__grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 640px) {
+  .mission__terminal { padding: 1.25rem 1.4rem; }
+  .mission-card,
+  .value-card,
+  .what-we-do-card { padding: 1.35rem; }
+  .who-we-are__visual { padding: 1.1rem; }
+}
+
+@media (max-width: 400px) {
+  .mission__terminal p { font-size: 0.84rem; line-height: 1.7; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

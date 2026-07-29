@@ -299,7 +299,6 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
 }
 
-/* subtle organic tilt, like frames hung slightly off */
 .gallery-item:nth-child(3n + 1) .gallery-frame { transform: rotate(-1.4deg); }
 .gallery-item:nth-child(3n + 2) .gallery-frame { transform: rotate(1.1deg); }
 .gallery-item:nth-child(3n)     .gallery-frame { transform: rotate(-0.6deg); }
@@ -325,9 +324,12 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 640px) {
   .events__grid { grid-template-columns: 1fr; }
   .past__grid { grid-template-columns: 1fr; }
+  .event-card { padding: 1.35rem; }
+  .past-event-card { padding: 1.1rem; }
   .gallery__wall {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 130px;
+    gap: 1.25rem 1rem;
   }
   .gallery-item--tall,
   .gallery-item--lg { grid-row: span 3; }
@@ -335,31 +337,55 @@ button { font-family: inherit; cursor: pointer; }
   .gallery-item--xl { grid-column: span 2; grid-row: span 4; }
 }
 
+@media (max-width: 420px) {
+  .gallery__wall { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .gallery-item--tall,
+  .gallery-item--lg,
+  .gallery-item--wide,
+  .gallery-item--sm,
+  .gallery-item--xl { grid-column: span 1; grid-row: span 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-#root > div > section.contact-info > div.section-head {
-  margin-left: 40px;
+/* These fixed pixel offsets only make sense on very wide desktop viewports —
+   scoped accordingly, with an explicit mobile reset so they can never push
+   content off-screen or cause horizontal scroll on phones/tablets. */
+@media (min-width: 1200px) {
+  #root > div > section.contact-info > div.section-head {
+    margin-left: 40px;
+  }
+
+  #root > div > section.follow > div.section-head {
+    margin-left: 40px;
+  }
+
+  #root > div > section.why-join > div.section-head.section-head--center > h2 {
+    margin-left: 350px;
+  }
+
+  #root > div > section.why-join > div.section-head.section-head--center > span {
+    margin-left: 350px;
+  }
+
+  #root > div > section.values > div.section-head.section-head--center > h2 {
+    margin-left: 380px;
+  }
+
+  #root > div > section.values > div.section-head.section-head--center > span {
+    margin-left: 450px;
+  }
 }
 
-#root > div > section.follow > div.section-head {
-  margin-left: 40px;
+@media (max-width: 900px) {
+  #root > div > section.contact-info > div.section-head,
+  #root > div > section.follow > div.section-head,
+  #root > div > section.why-join > div.section-head.section-head--center > h2,
+  #root > div > section.why-join > div.section-head.section-head--center > span,
+  #root > div > section.values > div.section-head.section-head--center > h2,
+  #root > div > section.values > div.section-head.section-head--center > span {
+    margin-left: 0 !important;
+  }
 }
-
-#root > div > section.why-join > div.section-head.section-head--center > h2 {
-  margin-left: 350px;
-}
-
-#root > div > section.why-join > div.section-head.section-head--center > span {
-  margin-left: 350px;
-}
-
-#root > div > section.values > div.section-head.section-head--center > h2 {
-  margin-left: 380px;
-}
-
-#root > div > section.values > div.section-head.section-head--center > span {
-  margin-left: 450px;
-}
-

@@ -681,54 +681,87 @@ img.about-brief__photo-slot.about-brief__photo-slot--offset:hover {
 @media (max-width: 900px) {
   .hero__grid { grid-template-columns: 1fr; text-align: left; }
   .hero__visual { justify-content: flex-start; margin-top: 1rem; }
+  .hero__visual img,
+  .hero__visual svg { max-width: 220px; }
   .about-brief__grid { grid-template-columns: 1fr; }
   .about-brief__photo-slot--offset { transform: none; }
   .about-brief__photo-slot--offset:hover:not(img) { transform: scale(1.05); }
   img.about-brief__photo-slot.about-brief__photo-slot--offset:hover { transform: scale(1.18); }
   .events__grid { grid-template-columns: repeat(2, 1fr); }
   .foss-fridays__grid { grid-template-columns: 1fr; }
+  .foss-fridays__player { padding: 1rem 0 0; }
   .team__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 640px) {
+  .hero { padding-top: 2.5rem; }
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { justify-content: center; }
   .about-brief__photos { grid-template-columns: 1fr 1fr; }
   .events__grid { grid-template-columns: 1fr; }
   .newsletter-stack { max-width: 280px; margin: 0 auto; }
-  .team__grid { grid-template-columns: repeat(2, 1fr); }
+  .team__grid { grid-template-columns: 1fr; }
   .team-card__back { padding: 1rem 1rem; }
   .team-card__desc { font-size: 0.76rem; }
+  .section-head { margin-bottom: 1.75rem; }
+}
+
+@media (max-width: 480px) {
+  .hero__title { font-size: clamp(2.2rem, 10vw, 2.8rem); line-height: 1.05; }
+  .hero__subtitle { font-size: 0.98rem; }
+  .about-brief__photos { grid-template-columns: 1fr; }
+  .about-brief__photo-slot--offset { transform: none; }
+  .event-card { padding: 1.35rem; }
+  .team__grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* Asav was here n made these changes below:  */
+/* Asav was here n made these changes below — these fixed pixel offsets only
+   make sense on very wide desktop viewports. On tablet/mobile they were
+   shoving section headings off-screen and causing horizontal scroll, so
+   they're now scoped to large screens only, with a mobile reset below. */
 
-#root > div > section.events > div.section-head {
-  margin-left: 40px;
+@media (min-width: 1200px) {
+  #root > div > section.events > div.section-head {
+    margin-left: 40px;
+  }
+
+  #root > div > section.team > div > div.section-head {
+    margin-left: 0px;
+  }
+
+  #root > div > section.values > div.section-head.section-head--center {
+    margin-left: 140px;
+  }
+
+  #root > div > section.upcoming > div.section-head {
+    margin-left: 40px;
+  }
+
+  #root > div > section.past > div.section-head {
+    margin-left: 40px;
+  }
+
+  #root > div > section.gallery > div.section-head.section-head--center > h2 {
+    margin-left: 400px;
+  }
+
+  #root > div > section.gallery > div.section-head.section-head--center > span {
+    margin-left: 400px;
+  }
 }
 
-#root > div > section.team > div > div.section-head {
-  margin-left: 0px;
-}
-
-#root > div > section.values > div.section-head.section-head--center {
-  margin-left: 140px;
-}
-
-#root > div > section.upcoming > div.section-head {
-  margin-left: 40px;
-}
-
-#root > div > section.past > div.section-head {
-  margin-left: 40px;
-}
-
-#root > div > section.gallery > div.section-head.section-head--center > h2 {
-  margin-left: 400px;
-}
-
-#root > div > section.gallery > div.section-head.section-head--center > span {
-  margin-left: 400px;
+@media (max-width: 900px) {
+  #root > div > section.events > div.section-head,
+  #root > div > section.team > div > div.section-head,
+  #root > div > section.values > div.section-head.section-head--center,
+  #root > div > section.upcoming > div.section-head,
+  #root > div > section.past > div.section-head,
+  #root > div > section.gallery > div.section-head.section-head--center > h2,
+  #root > div > section.gallery > div.section-head.section-head--center > span {
+    margin-left: 0 !important;
+  }
 }
