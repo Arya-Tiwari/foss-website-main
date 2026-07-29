@@ -23,7 +23,7 @@ export const newsletters = [
     id: "1",
     issue: "News Letter 01",
     title: "The Agentic AI Threat: Beyond the Prompt",
-    date: "1st August, 2025",
+    date: "31st July, 2026",
     topics: ["AI Security", "Cybersecurity", "Agentic AI"],
     summary:
       "Can autonomous AI agents become cybersecurity threats? Artificial intelligence is no longer limited to answering questions or generating text — new AI agents can browse websites, run code, use tools, and complete tasks with limited human supervision.",
