@@ -320,7 +320,7 @@ function FossFridaysSection() {
 
               <span className="newsletter-stack__footer">
                 <span className="newsletter-stack__date">
-                  <FaRegCalendarAlt size={11} /> 31st Jul
+                  <FaRegCalendarAlt size={11} /> 31st July
                 </span>
                 <span className="newsletter-stack__cta">
                   Read latest issue <FaArrowRight size={11} />
