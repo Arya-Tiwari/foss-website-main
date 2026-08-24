@@ -55,7 +55,7 @@ export const supercore = {
         github: "https://github.com/bhavyashah1403/",
       }),
     member("Sonal Aggarwal", "Chairperson",
-      "Sets the club's overall direction and represents FOSS MPSTME to the institute and industry partners.",
+      "Sets the club's overall direction & represents it to the institute & industry partners.",
       {
         linkedin: "https://www.linkedin.com/in/sonal-aggarwal-72bb6432b/",
       }),
