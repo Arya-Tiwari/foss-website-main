@@ -321,6 +321,14 @@ function SupercoreSection({ members }) {
 function DepartmentSection({ department, index }) {
   const branchTitle = getBranchTitle(department.title);
   const sectionNumber = String(index + 2).padStart(2, "0");
+  const memberCount = department.members.length;
+  const memberGridClassName = [
+    "department-members",
+    memberCount === 5 && "department-members--five",
+    memberCount >= 2 && memberCount <= 3 && "department-members--loose",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <section className="department-section" aria-labelledby={`department-${index}`}>
@@ -359,7 +367,7 @@ function DepartmentSection({ department, index }) {
         </motion.header>
 
         <motion.div
-          className={`department-members${department.members.length === 5 ? " department-members--five" : ""}${department.members.length >= 2 && department.members.length <= 3 ? " department-members--loose" : ""}`}
+          className={memberGridClassName}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.18 }}

@@ -440,14 +440,6 @@ button { font-family: inherit; cursor: pointer; }
   grid-column: auto;
 }
 
-.department-members--five .member-card:nth-child(4) {
-  grid-column: auto;
-}
-
-.department-members--five .member-card:nth-child(5) {
-  grid-column: auto;
-}
-
 .department-members .member-card:nth-child(n) { margin-top: 0; }
 .department-members .member-card:nth-child(even) { margin-top: var(--member-stagger); }
 
@@ -788,11 +780,6 @@ button { font-family: inherit; cursor: pointer; }
 
   .department-members--loose .member-card,
   .department-members--five .member-card {
-    grid-column: auto;
-  }
-
-  .department-members--five .member-card:nth-child(4),
-  .department-members--five .member-card:nth-child(5) {
     grid-column: auto;
   }
 }
