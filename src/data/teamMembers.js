@@ -1,17 +1,6 @@
 // src/data/teamMembers.js
 //
 // All team data for the Teams page lives here.
-// - Names, designations, and socials below are real (as provided).
-// - ALL photos (Supercore + every department) live flat in:
-//     public/team/<slug>.png
-//   where <slug> is the person's name, lowercased, spaces replaced with
-//   hyphens (e.g. "Aakarsh Singh" -> aakarsh-singh.png). No subfolders.
-// - Just drop a correctly-named file into public/team/ and it appears on
-//   that member's card automatically — no code changes needed. Missing
-//   photos fall back to an auto-generated initials avatar.
-// - Each member has their OWN independent socials object. Pass whichever
-//   links exist as the 4th argument to member(); anything omitted stays
-//   null and TeamCard simply won't render an icon for it.
 
 let uid = 0;
 
@@ -41,9 +30,7 @@ function member(name, position, description, socialsOverride) {
   };
 }
 
-// ---------------------------------------------------------------------------
 // Supercore — leadership cards are arranged in the Team page component.
-// ---------------------------------------------------------------------------
 export const supercore = {
   title: "Supercore",
   layout: "row",
@@ -80,9 +67,7 @@ export const supercore = {
   ],
 };
 
-// ---------------------------------------------------------------------------
-// Core — groups every department below. No members of its own.
-// ---------------------------------------------------------------------------
+// Core 
 export const coreLabel = "Core";
 
 export const departments = [
