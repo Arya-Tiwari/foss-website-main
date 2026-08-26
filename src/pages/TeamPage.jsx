@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Navbar from "../components/Navbar";
@@ -92,7 +92,7 @@ function CustomCursor() {
   );
 }
 
-function TeamHero({ totalMembers, totalDepartments }) {
+function TeamHero({ totalDepartments }) {
   return (
     <section className="team-hero" aria-labelledby="team-title">
       <div className="team-hero__inner">
@@ -116,7 +116,7 @@ function TeamHero({ totalMembers, totalDepartments }) {
             FOSS MPSTME.
           </p>
           <div className="team-hero__stats" aria-label="Team statistics">
-            <span>{totalMembers} contributors</span>
+            <span>50+ contributors</span>
             <span>{totalDepartments} departments</span>
             <span>one community</span>
           </div>
@@ -412,14 +412,6 @@ export default function TeamPage() {
   const [branchPulse, setBranchPulse] = useState(false);
   const pulseTimeout = useRef(null);
 
-  const totals = useMemo(() => {
-    const departmentMembers = departments.reduce((sum, department) => sum + department.members.length, 0);
-    return {
-      members: supercore.members.length + departmentMembers,
-      departments: departments.length,
-    };
-  }, []);
-
   useEffect(() => {
     let keys = "";
 
@@ -457,7 +449,7 @@ export default function TeamPage() {
       <Navbar />
       <main className="team-page__main">
         <CustomCursor />
-        <TeamHero totalMembers={totals.members} totalDepartments={totals.departments} />
+        <TeamHero totalDepartments={departments.length} />
         <SupercoreSection members={supercore.members} />
         <BranchTimeline departments={departments} pulse={branchPulse} />
       </main>
