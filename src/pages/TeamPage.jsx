@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaChevronDown, FaGithub, FaLinkedin } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { supercore, departments } from "../data/teamMembers";
@@ -58,6 +58,45 @@ function handleImgError(event, name) {
 
 function getBranchTitle(title) {
   return title.replace(" Department", "").replace("Digital ", "").replace("Social Media and ", "");
+}
+
+function getPhotoClassName(name) {
+  return `member-card__photo--${name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+}
+
+function getDepartmentMemberRows(members) {
+  const indexedMembers = members.map((member, index) => ({ member, index }));
+  const heads = indexedMembers.filter(({ member }) => member.position === "Head");
+  const subHeads = indexedMembers.filter(({ member }) => member.position === "Sub Head");
+  const otherRoles = indexedMembers.filter(
+    ({ member }) => member.position !== "Head" && member.position !== "Sub Head",
+  );
+
+  return [
+    { id: "heads", members: heads },
+    { id: "sub-heads", members: subHeads },
+    { id: "other-roles", members: otherRoles },
+  ].filter((row) => row.members.length > 0);
+}
+
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() => (
+    typeof window === "undefined" ? false : window.matchMedia(query).matches
+  ));
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const updateMatch = () => setMatches(mediaQuery.matches);
+
+    updateMatch();
+    mediaQuery.addEventListener("change", updateMatch);
+    return () => mediaQuery.removeEventListener("change", updateMatch);
+  }, [query]);
+
+  return matches;
 }
 
 function CustomCursor() {
@@ -150,7 +189,7 @@ function SocialLinks({ member }) {
   );
 }
 
-function TypedDescription({ text, active, onMouseEnter, onMouseLeave }) {
+function TypedDescription({ id, text, active, onMouseEnter, onMouseLeave }) {
   const [typedText, setTypedText] = useState("");
 
   useEffect(() => {
@@ -176,6 +215,7 @@ function TypedDescription({ text, active, onMouseEnter, onMouseLeave }) {
 
   return (
     <p
+      id={id}
       className={`member-card__desc${active ? " is-visible" : ""}`}
       aria-hidden={!active}
       onMouseEnter={onMouseEnter}
@@ -186,20 +226,31 @@ function TypedDescription({ text, active, onMouseEnter, onMouseLeave }) {
   );
 }
 
-function MemberCard({ member, index }) {
+function MemberCard({
+  member,
+  index,
+  isMobileLayout,
+  activeMobileDescriptionId,
+  setActiveMobileDescriptionId,
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeout = useRef(null);
+  const descriptionId = `${member.id}-description`;
+  const isMobileDescriptionOpen = isMobileLayout && activeMobileDescriptionId === member.id;
+  const isDescriptionActive = isMobileLayout ? isMobileDescriptionOpen : isHovered;
   const portrait = (
     <img
       src={member.photo}
       alt={member.name}
-      className="member-card__photo"
+      className={`member-card__photo ${getPhotoClassName(member.name)}`}
       loading="lazy"
       onError={(event) => handleImgError(event, member.name)}
     />
   );
 
   const showDescription = () => {
+    if (isMobileLayout) return;
+
     if (hoverTimeout.current) {
       window.clearTimeout(hoverTimeout.current);
       hoverTimeout.current = null;
@@ -208,6 +259,8 @@ function MemberCard({ member, index }) {
   };
 
   const hideDescription = () => {
+    if (isMobileLayout) return;
+
     if (hoverTimeout.current) {
       window.clearTimeout(hoverTimeout.current);
     }
@@ -215,6 +268,14 @@ function MemberCard({ member, index }) {
       setIsHovered(false);
       hoverTimeout.current = null;
     }, 120);
+  };
+
+  const toggleMobileDescription = () => {
+    if (!isMobileLayout) return;
+
+    setActiveMobileDescriptionId((activeId) => (
+      activeId === member.id ? null : member.id
+    ));
   };
 
   useEffect(() => {
@@ -227,7 +288,7 @@ function MemberCard({ member, index }) {
 
   return (
     <motion.article
-      className="member-card"
+      className={`member-card${isMobileDescriptionOpen ? " is-mobile-desc-open" : ""}`}
       variants={revealUp}
       whileHover={{ scale: 1.035 }}
       transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
@@ -259,22 +320,40 @@ function MemberCard({ member, index }) {
       <div className="member-card__body">
         <div>
           <h3>{member.name}</h3>
-          <p>{member.position}</p>
+          <div className="member-card__role-row">
+            <p className="member-card__position">{member.position}</p>
+            <button
+              type="button"
+              className="member-card__role-toggle"
+              aria-expanded={isMobileDescriptionOpen}
+              aria-controls={descriptionId}
+              aria-label={`${isMobileDescriptionOpen ? "Hide" : "Show"} ${member.position} description for ${member.name}`}
+              onClick={toggleMobileDescription}
+            >
+              <FaChevronDown aria-hidden="true" />
+            </button>
+          </div>
         </div>
         <span className="member-card__line" />
+        <SocialLinks member={member} />
         <TypedDescription
+          id={descriptionId}
           text={member.description}
-          active={isHovered}
+          active={isDescriptionActive}
           onMouseEnter={showDescription}
           onMouseLeave={hideDescription}
         />
-        <SocialLinks member={member} />
       </div>
     </motion.article>
   );
 }
 
-function SupercoreSection({ members }) {
+function SupercoreSection({
+  members,
+  isMobileLayout,
+  activeMobileDescriptionId,
+  setActiveMobileDescriptionId,
+}) {
   const primaryLeadership = members.slice(0, 2);
   const supportingLeadership = members.slice(2);
 
@@ -287,10 +366,11 @@ function SupercoreSection({ members }) {
 
       <motion.div
         className="supercore-map"
-        initial="hidden"
-        whileInView="visible"
+        initial={isMobileLayout ? false : "hidden"}
+        animate={isMobileLayout ? "visible" : undefined}
+        whileInView={isMobileLayout ? undefined : "visible"}
         viewport={{ once: true, amount: 0.25 }}
-        variants={staggerMembers}
+        variants={isMobileLayout ? undefined : staggerMembers}
       >
         <span className="supercore-map__spine" aria-hidden="true" />
         <div className="supercore-tier supercore-tier--primary">
@@ -299,6 +379,9 @@ function SupercoreSection({ members }) {
               <MemberCard
                 member={member}
                 index={index}
+                isMobileLayout={isMobileLayout}
+                activeMobileDescriptionId={activeMobileDescriptionId}
+                setActiveMobileDescriptionId={setActiveMobileDescriptionId}
               />
             </div>
           ))}
@@ -309,6 +392,9 @@ function SupercoreSection({ members }) {
               <MemberCard
                 member={member}
                 index={index + primaryLeadership.length}
+                isMobileLayout={isMobileLayout}
+                activeMobileDescriptionId={activeMobileDescriptionId}
+                setActiveMobileDescriptionId={setActiveMobileDescriptionId}
               />
             </div>
           ))}
@@ -318,17 +404,16 @@ function SupercoreSection({ members }) {
   );
 }
 
-function DepartmentSection({ department, index }) {
+function DepartmentSection({
+  department,
+  index,
+  isMobileLayout,
+  activeMobileDescriptionId,
+  setActiveMobileDescriptionId,
+}) {
   const branchTitle = getBranchTitle(department.title);
   const sectionNumber = String(index + 2).padStart(2, "0");
-  const memberCount = department.members.length;
-  const memberGridClassName = [
-    "department-members",
-    memberCount === 5 && "department-members--five",
-    memberCount >= 2 && memberCount <= 3 && "department-members--loose",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const memberRows = getDepartmentMemberRows(department.members);
 
   return (
     <section className="department-section" aria-labelledby={`department-${index}`}>
@@ -367,18 +452,31 @@ function DepartmentSection({ department, index }) {
         </motion.header>
 
         <motion.div
-          className={memberGridClassName}
-          initial="hidden"
-          whileInView="visible"
+          className="department-members"
+          initial={isMobileLayout ? false : "hidden"}
+          animate={isMobileLayout ? "visible" : undefined}
+          whileInView={isMobileLayout ? undefined : "visible"}
           viewport={{ once: true, amount: 0.18 }}
-          variants={staggerMembers}
+          variants={isMobileLayout ? undefined : staggerMembers}
         >
-          {department.members.map((member, memberIndex) => (
-            <MemberCard
-              key={member.id}
-              member={member}
-              index={memberIndex}
-            />
+          {memberRows.map((row) => (
+            <motion.div
+              className={`department-members__row department-members__row--count-${row.members.length}`}
+              key={row.id}
+              style={{ "--department-row-count": row.members.length }}
+              variants={isMobileLayout ? undefined : staggerMembers}
+            >
+              {row.members.map(({ member, index: memberIndex }) => (
+                <MemberCard
+                  key={member.id}
+                  member={member}
+                  index={memberIndex}
+                  isMobileLayout={isMobileLayout}
+                  activeMobileDescriptionId={activeMobileDescriptionId}
+                  setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+                />
+              ))}
+            </motion.div>
           ))}
         </motion.div>
       </div>
@@ -386,7 +484,13 @@ function DepartmentSection({ department, index }) {
   );
 }
 
-function BranchTimeline({ departments: teamDepartments, pulse }) {
+function BranchTimeline({
+  departments: teamDepartments,
+  pulse,
+  isMobileLayout,
+  activeMobileDescriptionId,
+  setActiveMobileDescriptionId,
+}) {
   const branchRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: branchRef,
@@ -402,6 +506,9 @@ function BranchTimeline({ departments: teamDepartments, pulse }) {
           key={department.title}
           department={department}
           index={index}
+          isMobileLayout={isMobileLayout}
+          activeMobileDescriptionId={activeMobileDescriptionId}
+          setActiveMobileDescriptionId={setActiveMobileDescriptionId}
         />
       ))}
     </div>
@@ -410,7 +517,9 @@ function BranchTimeline({ departments: teamDepartments, pulse }) {
 
 export default function TeamPage() {
   const [branchPulse, setBranchPulse] = useState(false);
+  const [activeMobileDescriptionId, setActiveMobileDescriptionId] = useState(null);
   const pulseTimeout = useRef(null);
+  const isMobileLayout = useMediaQuery("(max-width: 560px)");
 
   useEffect(() => {
     let keys = "";
@@ -444,14 +553,31 @@ export default function TeamPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMobileLayout) {
+      setActiveMobileDescriptionId(null);
+    }
+  }, [isMobileLayout]);
+
   return (
     <div className="landing team-page">
       <Navbar />
       <main className="team-page__main">
         <CustomCursor />
         <TeamHero totalDepartments={departments.length} />
-        <SupercoreSection members={supercore.members} />
-        <BranchTimeline departments={departments} pulse={branchPulse} />
+        <SupercoreSection
+          members={supercore.members}
+          isMobileLayout={isMobileLayout}
+          activeMobileDescriptionId={activeMobileDescriptionId}
+          setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+        />
+        <BranchTimeline
+          departments={departments}
+          pulse={branchPulse}
+          isMobileLayout={isMobileLayout}
+          activeMobileDescriptionId={activeMobileDescriptionId}
+          setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+        />
       </main>
       <Footer />
     </div>

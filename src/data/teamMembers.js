@@ -42,7 +42,7 @@ function member(name, position, description, socialsOverride) {
 }
 
 // ---------------------------------------------------------------------------
-// Supercore — 5 members, single line
+// Supercore — leadership cards are arranged in the Team page component.
 // ---------------------------------------------------------------------------
 export const supercore = {
   title: "Supercore",
@@ -88,7 +88,7 @@ export const coreLabel = "Core";
 export const departments = [
   {
     title: "Technical Department",
-    layout: "row", // 5 members, single line
+    layout: "row",
     members: [
       member("Sachin Kumar", "Head",
         "Leads workshop planning and reviews code contributions across club projects.",
@@ -124,7 +124,7 @@ export const departments = [
   },
   {
     title: "Public Relations Department",
-    layout: "row", // 4 members, single line
+    layout: "row",
     members: [
       member("Kian Rodrigues", "Head",
         "Manages outreach to sponsors, speakers, and partner communities.",
@@ -154,7 +154,7 @@ export const departments = [
   },
   {
     title: "Marketing Department",
-    layout: "row", // 2 members, single line
+    layout: "row",
     members: [
       member("Vedang Mane", "Head",
         "Plans promotional campaigns and event marketing calendars.",
@@ -172,7 +172,7 @@ export const departments = [
   },
   {
     title: "Research and Development Department",
-    layout: "row", // 5 members, single line
+    layout: "row",
     members: [
       member("Sanya Gomathi", "Head",
         "Scouts emerging open-source tools and sets the club's technical research agenda.",
@@ -208,7 +208,7 @@ export const departments = [
   },
   {
     title: "Operations Department",
-    layout: "row", // 3 members, single line
+    layout: "row",
     members: [
       member("Arpit Kumar Jena", "Head",
         "Handles logistics, venue bookings, and on-ground event execution.",
@@ -232,7 +232,7 @@ export const departments = [
   },
   {
     title: "Digital Creatives Department",
-    layout: "row", // 4 members, single line
+    layout: "row",
     members: [
       member("Shritej Salian", "Head",
         "Leads the visual identity for events, posters, and social posts.",
@@ -261,7 +261,7 @@ export const departments = [
   },
   {
     title: "Social Media and Content Writing Department",
-    layout: "row", // 5 members, single line
+    layout: "row",
     members: [
       member("Naitik Mehta", "Head",
         "Owns the posting calendar and voice across the club's social channels.",
