@@ -67,30 +67,6 @@ button { font-family: inherit; cursor: pointer; }
   mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 78%, transparent);
 }
 
-.team-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 80;
-  width: 34px;
-  height: 34px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  margin: -17px 0 0 -17px;
-  border: 1px solid rgba(78, 203, 116, 0.55);
-  color: var(--green-bright);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  line-height: 1;
-  pointer-events: none;
-  transition: width 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-}
-
-@media (pointer: fine) {
-  .team-cursor { display: flex; }
-}
-
 /* ---------- Hero ---------- */
 .team-hero {
   min-height: calc(82svh - 78px);
@@ -621,7 +597,6 @@ button { font-family: inherit; cursor: pointer; }
   --photo-x: center;
   --photo-y: top;
   --photo-offset-x: 0;
-  --photo-rotate: 0deg;
   --photo-scale: 1;
   --photo-hover-scale: 1.03;
   --photo-offset-y: 0;
@@ -632,7 +607,7 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
   object-fit: var(--photo-fit);
   object-position: var(--photo-x) var(--photo-y);
-  transform: translate(var(--photo-offset-x), var(--photo-offset-y)) rotate(var(--photo-rotate)) scale(var(--photo-scale));
+  transform: translate(var(--photo-offset-x), var(--photo-offset-y)) scale(var(--photo-scale));
   transform-origin: var(--photo-origin);
   transition: transform 0.32s ease, filter 0.32s ease;
 }
@@ -691,6 +666,23 @@ button { font-family: inherit; cursor: pointer; }
   --photo-scale: 1.28;
   --photo-hover-scale: 1.32;
   --photo-y: center;
+}
+
+@media (min-width: 901px) {
+  .member-card__photo--preet-agarwal,
+  .member-card__photo--shardul-sonparote {
+    --photo-scale: 1.04;
+    --photo-hover-scale: 1.055;
+    --photo-offset-y: 15px;
+    --photo-hover-offset-y: 18px;
+  }
+
+  .member-card__photo--vedang-mane {
+    --photo-scale: 1.03;
+    --photo-hover-scale: 1.045;
+    --photo-offset-y: 16px;
+    --photo-hover-offset-y: 14px;
+  }
 }
 
 .member-card__body {
@@ -824,7 +816,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .member-card:hover .member-card__photo,
 .member-card:focus-within .member-card__photo {
-  transform: translate(var(--photo-offset-x), var(--photo-hover-offset-y)) rotate(var(--photo-rotate)) scale(var(--photo-hover-scale));
+  transform: translate(var(--photo-offset-x), var(--photo-hover-offset-y)) scale(var(--photo-hover-scale));
   filter: saturate(1.08);
 }
 
@@ -945,6 +937,7 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (max-width: 560px) {
   .team-page {
+    --mobile-member-gap: clamp(1.15rem, 3.2svh, 1.55rem);
     background-size: 48px 48px;
   }
 
@@ -954,12 +947,17 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .team-terminal {
-    white-space: normal;
+    max-width: 100%;
+    overflow: hidden;
+    font-size: clamp(0.64rem, 2.7vw, 0.78rem);
+    white-space: nowrap;
   }
 
   .team-terminal__text {
-    border-right: 0;
-    animation: none;
+    border-right: 2px solid var(--green-bright);
+    animation:
+      team-type 1.15s steps(var(--prompt-characters)) both,
+      team-cursor-blink 0.65s step-end 1.15s 3;
   }
 
   .team-hero__stats {
@@ -968,8 +966,8 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .supercore-section {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
   }
 
   .supercore-map,
@@ -990,15 +988,31 @@ button { font-family: inherit; cursor: pointer; }
     grid-template-columns: 1fr;
   }
 
+  .supercore-map,
+  .supercore-tier,
+  .supercore-tier--primary,
+  .supercore-tier--supporting,
+  .department-members,
+  .department-members__row {
+    gap: var(--mobile-member-gap);
+    row-gap: var(--mobile-member-gap);
+  }
+
+  .supercore-tier .supercore-slot:nth-child(even),
+  .department-members .member-card:nth-child(even) {
+    margin-top: 0;
+  }
+
   .department-members__row .member-card {
     grid-column: auto;
   }
 
   .member-card {
     display: grid;
-    grid-template-columns: 2.2rem 96px minmax(0, 1fr);
-    gap: 0.85rem;
+    grid-template-columns: 1.45rem clamp(148px, 41vw, 174px) minmax(0, 1fr);
+    gap: 0.8rem;
     align-items: start;
+    width: 100%;
     opacity: 1 !important;
     transform: none !important;
   }
@@ -1018,10 +1032,15 @@ button { font-family: inherit; cursor: pointer; }
 
   .member-card__body {
     padding-top: 0;
-    min-height: 11.25rem;
+    padding-right: 0.1rem;
+    min-height: clamp(12rem, 29svh, 13rem);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+  }
+
+  .member-card__measure--top {
+    top: -0.95rem;
   }
 
   .member-card__body h3 {
@@ -1046,6 +1065,83 @@ button { font-family: inherit; cursor: pointer; }
     transform: none;
   }
 
+  .member-card__photo--aakarsh-singh,
+  .member-card__photo--aishita-dhingra,
+  .member-card__photo--ayush-krishnan,
+  .member-card__photo--jash-vakharia,
+  .member-card__photo--kashvi-kotecha,
+  .member-card__photo--kian-rodrigues,
+  .member-card__photo--mahi-jain,
+  .member-card__photo--mohil-gosar,
+  .member-card__photo--naitik-mehta,
+  .member-card__photo--neha-parab,
+  .member-card__photo--prathamesh-mahadik,
+  .member-card__photo--preet-agarwal,
+  .member-card__photo--preksha-jain,
+  .member-card__photo--rohan-kulkarni,
+  .member-card__photo--shardul-sonparote,
+  .member-card__photo--shritej-salian,
+  .member-card__photo--sonal-aggarwal,
+  .member-card__photo--vedang-mane {
+    --photo-scale: 1;
+    --photo-hover-scale: 1;
+    --photo-y: center;
+  }
+
+  .member-card__photo--ayushi-soni {
+    --photo-scale: 1.16;
+    --photo-hover-scale: 1.16;
+    --photo-y: center;
+  }
+
+  .member-card__photo--asavari-shirodkar {
+    --photo-scale: 1;
+    --photo-hover-scale: 1;
+    --photo-y: center;
+  }
+
+  .member-card__photo--chandni-iyer,
+  .member-card__photo--diantha-kanchan {
+    --photo-scale: 1.14;
+    --photo-hover-scale: 1.14;
+    --photo-y: center;
+  }
+
+  .member-card__photo--virti-shah {
+    --photo-scale: 1.12;
+    --photo-hover-scale: 1.12;
+    --photo-y: center;
+  }
+
+  .member-card__photo--kahaan-desai {
+    --photo-scale: 1.08;
+    --photo-hover-scale: 1.08;
+    --photo-y: center;
+  }
+
+  .member-card__photo--shaurya-mehta {
+    --photo-scale: 1.16;
+    --photo-hover-scale: 1.16;
+    --photo-y: center;
+  }
+
+  .member-card__photo--aakarsh-singh,
+  .member-card__photo--ayush-krishnan,
+  .member-card__photo--prathamesh-mahadik,
+  .member-card__photo--preet-agarwal,
+  .member-card__photo--sachin-kumar,
+  .member-card__photo--sanya-gomathi,
+  .member-card__photo--shardul-sonparote,
+  .member-card__photo--vedang-mane {
+    --photo-y: top;
+  }
+
+  .member-card__photo--sachin-kumar {
+    --photo-fit: contain;
+    --photo-scale: 1;
+    --photo-hover-scale: 1;
+  }
+
   .member-card__desc {
     position: static;
     min-height: 5.2rem;
@@ -1068,21 +1164,36 @@ button { font-family: inherit; cursor: pointer; }
     transform: translateY(0);
   }
 
-  .member-card:focus-within::before,
-  .member-card:focus-within::after {
-    opacity: 0;
+  .member-card::before,
+  .member-card::after {
+    display: none;
   }
 
+  .member-card__corner,
+  .member-card__measure,
+  .member-card:hover .member-card__corner,
+  .member-card:hover .member-card__measure,
   .member-card:focus-within .member-card__corner,
   .member-card:focus-within .member-card__measure {
     opacity: 0;
   }
 
+  .member-card.is-mobile-desc-open .member-card__measure--top {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .member-card.is-mobile-desc-open .member-card__measure--side {
+    opacity: 0;
+  }
+
+  .member-card:hover .member-card__photo,
   .member-card:focus-within .member-card__photo {
-    transform: translate(var(--photo-offset-x), var(--photo-offset-y)) rotate(var(--photo-rotate)) scale(var(--photo-scale));
+    transform: translate(var(--photo-offset-x), var(--photo-offset-y)) scale(var(--photo-scale));
     filter: none;
   }
 
+  .member-card:hover .member-card__body h3,
   .member-card:focus-within .member-card__body h3 {
     color: var(--white);
     transform: none;
@@ -1092,6 +1203,7 @@ button { font-family: inherit; cursor: pointer; }
     color: var(--green-bright);
   }
 
+  .member-card:hover .member-card__line,
   .member-card:focus-within .member-card__line {
     background: var(--green);
     transform: scaleX(0.45);
@@ -1107,26 +1219,26 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .branch-timeline {
-    width: calc(100% - 1.25rem);
+    width: calc(100% - 0.5rem);
     padding-top: 1rem;
   }
 
   .department-section {
-    grid-template-columns: 2.2rem minmax(0, 1fr);
+    grid-template-columns: 1.45rem minmax(0, 1fr);
     padding: 2.6rem 0;
   }
 
   .branch-timeline__line,
   .department-section__arm {
-    left: 0.65rem;
+    left: 0.45rem;
   }
 
   .department-section__arm {
-    width: 1.55rem;
+    width: 1.1rem;
   }
 
   .department-section__node {
-    left: calc(0.65rem - 6px);
+    left: calc(0.45rem - 6px);
   }
 
   .department-head {
@@ -1147,8 +1259,8 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (max-width: 360px) {
   .member-card {
-    grid-template-columns: 1.8rem 82px minmax(0, 1fr);
-    gap: 0.65rem;
+    grid-template-columns: 1.2rem clamp(128px, 40vw, 140px) minmax(0, 1fr);
+    gap: 0.6rem;
   }
 
   .member-card__links a {
@@ -1179,7 +1291,4 @@ button { font-family: inherit; cursor: pointer; }
     transform: none !important;
   }
 
-  .team-cursor {
-    display: none;
-  }
 }

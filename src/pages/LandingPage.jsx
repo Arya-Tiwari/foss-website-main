@@ -338,7 +338,7 @@ const team = [
   {
     name: "Bhavya Shah",
     position: "Advisory",
-    photo: "/team/bhavya-shah.png",
+    photo: "/team/bhavya-shah.webp",
     description: "Provides guidance and continuity for the club's leadership team.",
     socials: {
       linkedin: "https://www.linkedin.com/in/bhavya-shah-6679281b6/",
@@ -348,7 +348,7 @@ const team = [
   {
     name: "Sonal Aggarwal",
     position: "Chairperson",
-    photo: "/team/sonal-aggarwal.png",
+    photo: "/team/sonal-aggarwal.webp",
     description:
       "Sets the club's overall direction and represents FOSS MPSTME to the institute and industry partners.",
     socials: {
@@ -358,7 +358,7 @@ const team = [
   {
     name: "Prathamesh Mahadik",
     position: "Vice Chairperson",
-    photo: "/team/prathamesh-mahadik.png",
+    photo: "/team/prathamesh-mahadik.webp",
     description: "Supports the Chairperson and drives cross-department coordination for major events.",
     socials: {
       linkedin: "https://www.linkedin.com/in/prathamesh-mahadik-01aa45372/",
@@ -368,7 +368,7 @@ const team = [
   {
     name: "Preet Agarwal",
     position: "Vice Chairperson",
-    photo: "/team/preet-agarwal.png",
+    photo: "/team/preet-agarwal.webp",
     description: "Supports the Chairperson and drives cross-department coordination for major events.",
     socials: {
       linkedin: "https://www.linkedin.com/in/preet-agarwal-43320137a?utm_source=share_via&utm_content=profile&utm_medium=member_android",
@@ -378,7 +378,7 @@ const team = [
   {
     name: "Jash Vakharia",
     position: "Secretary",
-    photo: "/team/jash-vakharia.png",
+    photo: "/team/jash-vakharia.webp",
     description: "Keeps meeting minutes, official records, and internal communication running smoothly.",
     socials: {
       linkedin: "https://linkedin.com/in/jashvakharia",

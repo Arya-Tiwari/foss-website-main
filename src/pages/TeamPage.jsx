@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FaChevronDown, FaGithub, FaLinkedin } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -99,39 +99,7 @@ function useMediaQuery(query) {
   return matches;
 }
 
-function CustomCursor() {
-  const cursorRef = useRef(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion || !window.matchMedia("(pointer: fine)").matches) {
-      return undefined;
-    }
-
-    const cursor = cursorRef.current;
-    const moveCursor = (event) => {
-      if (!cursor) return;
-      cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
-  }, [shouldReduceMotion]);
-
-  if (shouldReduceMotion) return null;
-
-  return (
-    <div
-      ref={cursorRef}
-      className="team-cursor"
-      aria-hidden="true"
-    >
-      <span>+</span>
-    </div>
-  );
-}
-
-function TeamHero({ totalDepartments }) {
+function TeamHero({ totalDepartments, onIntroComplete }) {
   return (
     <section className="team-hero" aria-labelledby="team-title">
       <div className="team-hero__inner">
@@ -145,6 +113,7 @@ function TeamHero({ totalDepartments }) {
           animate="visible"
           variants={revealUp}
           transition={{ duration: 0.65, delay: 1.45, ease: [0.22, 1, 0.36, 1] }}
+          onAnimationComplete={onIntroComplete}
         >
           <h1 id="team-title">
             <span>THE PEOPLE</span>
@@ -176,12 +145,24 @@ function SocialLinks({ member }) {
   return (
     <div className="member-card__links" aria-label={`${member.name} profiles`}>
       {member.socials?.github && (
-        <a href={member.socials.github} target="_blank" rel="noreferrer" aria-label={`${member.name} on GitHub`}>
+        <a
+          href={member.socials.github}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${member.name} on GitHub`}
+          onClick={(event) => event.stopPropagation()}
+        >
           <FaGithub />
         </a>
       )}
       {member.socials?.linkedin && (
-        <a href={member.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`${member.name} on LinkedIn`}>
+        <a
+          href={member.socials.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${member.name} on LinkedIn`}
+          onClick={(event) => event.stopPropagation()}
+        >
           <FaLinkedin />
         </a>
       )}
@@ -278,6 +259,15 @@ function MemberCard({
     ));
   };
 
+  const handleMobileCardClick = () => {
+    toggleMobileDescription();
+  };
+
+  const handleMobileToggleClick = (event) => {
+    event.stopPropagation();
+    toggleMobileDescription();
+  };
+
   useEffect(() => {
     return () => {
       if (hoverTimeout.current) {
@@ -296,6 +286,7 @@ function MemberCard({
       onMouseLeave={hideDescription}
       onFocus={showDescription}
       onBlur={hideDescription}
+      onClick={handleMobileCardClick}
     >
       <span className="member-card__index">{String(index + 1).padStart(2, "0")}</span>
       <div className="member-card__portrait-shell">
@@ -328,7 +319,7 @@ function MemberCard({
               aria-expanded={isMobileDescriptionOpen}
               aria-controls={descriptionId}
               aria-label={`${isMobileDescriptionOpen ? "Hide" : "Show"} ${member.position} description for ${member.name}`}
-              onClick={toggleMobileDescription}
+              onClick={handleMobileToggleClick}
             >
               <FaChevronDown aria-hidden="true" />
             </button>
@@ -516,6 +507,7 @@ function BranchTimeline({
 }
 
 export default function TeamPage() {
+  const [introComplete, setIntroComplete] = useState(false);
   const [branchPulse, setBranchPulse] = useState(false);
   const [activeMobileDescriptionId, setActiveMobileDescriptionId] = useState(null);
   const pulseTimeout = useRef(null);
@@ -563,23 +555,34 @@ export default function TeamPage() {
     <div className="landing team-page">
       <Navbar />
       <main className="team-page__main">
-        <CustomCursor />
-        <TeamHero totalDepartments={departments.length} />
-        <SupercoreSection
-          members={supercore.members}
-          isMobileLayout={isMobileLayout}
-          activeMobileDescriptionId={activeMobileDescriptionId}
-          setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+        <TeamHero
+          totalDepartments={departments.length}
+          onIntroComplete={() => setIntroComplete(true)}
         />
-        <BranchTimeline
-          departments={departments}
-          pulse={branchPulse}
-          isMobileLayout={isMobileLayout}
-          activeMobileDescriptionId={activeMobileDescriptionId}
-          setActiveMobileDescriptionId={setActiveMobileDescriptionId}
-        />
+        {introComplete && (
+          <motion.div
+            className="team-page__revealed-content"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <SupercoreSection
+              members={supercore.members}
+              isMobileLayout={isMobileLayout}
+              activeMobileDescriptionId={activeMobileDescriptionId}
+              setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+            />
+            <BranchTimeline
+              departments={departments}
+              pulse={branchPulse}
+              isMobileLayout={isMobileLayout}
+              activeMobileDescriptionId={activeMobileDescriptionId}
+              setActiveMobileDescriptionId={setActiveMobileDescriptionId}
+            />
+          </motion.div>
+        )}
       </main>
-      <Footer />
+      {introComplete && <Footer />}
     </div>
   );
 }
