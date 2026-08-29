@@ -8,15 +8,6 @@ import FossFridaysPage from "./pages/FossFridaysPage";
 import NewsletterPage from "./pages/NewsletterPage";
 import ScrollToTop from "./components/ScrollToTop";
 
-// Stub pages — swap these out as you build the real ones.
-function Placeholder({ title }) {
-  return (
-    <div style={{ minHeight: "60vh", display: "grid", placeItems: "center", fontFamily: "Inter, sans-serif" }}>
-      <h1>{title} — coming soon</h1>
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <BrowserRouter>

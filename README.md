@@ -16,7 +16,7 @@ The official website for FOSS Club MPSTME, built to showcase the club's events, 
 ```
 foss-mpstme-website/
 ├── public/
-│   ├── team/
+│   ├── team-images/
 │   ├── events/
 │   └── foss-logos/
 └── src/
